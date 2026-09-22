@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>THOMAS & KONG X MARNI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            DEFAULT: '#96192B',
+                            hover: '#7A1322',
+                            light: '#FDF2F4',
+                            border: '#E2B1B8'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #FDFBF7;
+            color: #1C1917;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .serif-title {
+            font-family: 'Playfair Display', serif;
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F5F5F4;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D6D3D1;
+            border-radius: 4px;
+        }
+        .line-clamp-custom {
+            display: -webkit-box;
+            -webkit-line-clamp: 6;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body class="min-h-screen py-8 px-4 sm:px-6">
+
+    <div class="max-w-md mx-auto space-y-6">
+
+        <header class="text-center space-y-1 select-none">
+            <h1 class="serif-title text-2xl sm:text-3xl font-bold tracking-tight text-stone-900 uppercase">
+                <span class="text-brand">&times;</span> THOMAS & KONG <span class="text-brand">&times;</span>
+            </h1>
+            <h2 class="serif-title text-xl sm:text-2xl font-bold tracking-tight text-stone-900 uppercase">
+                <span class="text-brand">&times;</span> MARNI <span class="text-brand">&times;</span>
+            </h2>
+            <p class="text-xs font-bold tracking-widest text-brand uppercase pt-1">
+                MILAN FASHION WEEK
+            </p>
+        </header>
+
+        <div class="space-y-3 select-none">
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-layer-group text-brand text-xs"></i>
+                <h3 class="text-xs font-bold tracking-wider text-stone-800 uppercase">SELECT CATEGORY</h3>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-2.5">
+                <button onclick="setCategory('caption')" id="cat-caption" class="cat-btn py-3 px-4 rounded-2xl text-[11px] sm:text-xs font-semibold border border-stone-200 bg-white text-stone-700 shadow-sm transition-all active:scale-95">Caption</button>
+                <button onclick="setCategory('shortCaption')" id="cat-shortCaption" class="cat-btn py-3 px-4 rounded-2xl text-[11px] sm:text-xs font-semibold border border-stone-200 bg-white text-stone-700 shadow-sm transition-all active:scale-95">Short Caption</button>
+                <button onclick="setCategory('reelCaption')" id="cat-reelCaption" class="cat-btn py-3 px-4 rounded-2xl text-[11px] sm:text-xs font-semibold border border-stone-200 bg-white text-stone-700 shadow-sm transition-all active:scale-95">Reel Caption</button>
+                <button onclick="setCategory('storyCaption')" id="cat-storyCaption" class="cat-btn py-3 px-4 rounded-2xl text-[11px] sm:text-xs font-semibold border border-stone-200 bg-white text-stone-700 shadow-sm transition-all active:scale-95">Story Caption</button>
+                <button onclick="setCategory('comment')" id="cat-comment" class="cat-btn py-3 px-4 rounded-2xl text-[11px] sm:text-xs font-semibold border border-stone-200 bg-white text-stone-700 shadow-sm transition-all active:scale-95">Comment</button>
+                <button onclick="setCategory('longComment')" id="cat-longComment" class="cat-btn py-3 px-4 rounded-2xl text-[11px] sm:text-xs font-semibold border border-stone-200 bg-white text-stone-700 shadow-sm transition-all active:scale-95">Long Comment</button>
+            </div>
+        </div>
+
+        <div id="accountSelectorContainer" class="hidden space-y-2 bg-stone-50 p-3 rounded-2xl border border-stone-200 select-none">
+            <label class="text-[11px] font-bold tracking-wider text-stone-500 uppercase block">COMMENT ACCOUNT</label>
+            <div class="grid grid-cols-3 gap-2">
+                <button onclick="setAccount('thomas')" id="acc-thomas" class="acc-btn py-2 text-[11px] font-bold rounded-xl border border-stone-200 bg-white text-stone-600 transition-all active:scale-95">THOMAS</button>
+                <button onclick="setAccount('kong')" id="acc-kong" class="acc-btn py-2 text-[11px] font-bold rounded-xl border border-stone-200 bg-white text-stone-600 transition-all active:scale-95">KONG</button>
+                <button onclick="setAccount('general')" id="acc-general" class="acc-btn py-2 text-[11px] font-bold rounded-xl border border-stone-200 bg-white text-stone-600 transition-all active:scale-95">GENERAL</button>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-3xl p-5 sm:p-6 border border-stone-200 shadow-sm space-y-5">
+            <div class="flex items-center justify-between select-none">
+                <span id="badgeCategory" class="px-3 py-1 bg-rose-50 text-brand text-[10px] font-bold tracking-wider rounded-full uppercase">
+                    CAPTION
+                </span>
+                <div class="flex items-center gap-2" id="toggleContainer">
+                    <span class="text-[10px] font-bold tracking-wider text-stone-500 uppercase">TAGS (@)</span>
+                    <button onclick="toggleOutputMentions()" id="outputMentionsToggle" class="w-9 h-5 bg-brand rounded-full transition-colors relative flex items-center px-0.5 active:scale-95">
+                        <div id="toggleCircle" class="w-4 h-4 bg-white rounded-full shadow-md transform translate-x-4 transition-transform"></div>
+                    </button>
+                </div>
+            </div>
+
+            <div class="space-y-4">
+                <div class="bg-stone-50/50 hover:bg-stone-50 rounded-2xl p-5 sm:p-6 border border-stone-200 min-h-[160px] flex items-center justify-center transition-colors">
+                    <p id="generatedText" class="text-sm font-medium leading-relaxed text-stone-800 text-center whitespace-pre-wrap"></p>
+                </div>
+
+                <div id="captionTagsContainer" class="space-y-3 pt-3 border-t border-stone-100 min-h-[80px]">
+                    <div id="outputHandles" class="text-center space-y-3 select-none">
+                        <!-- Dynamic handles & hashtags render here -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-2 pt-2 border-t border-stone-100 select-none">
+                <button onclick="generateContent()" class="w-full py-4 bg-stone-900 hover:bg-black text-white text-[13px] font-bold tracking-widest rounded-2xl shadow-sm transition-all flex items-center justify-center gap-2 active:scale-[0.98]">
+                    <span>&#127922;</span> GENERATE NEW COPY
+                </button>
+                <div class="grid grid-cols-2 gap-2">
+                    <button onclick="copyGeneratedText()" class="py-3 bg-white hover:bg-stone-50 border border-stone-200 text-stone-800 text-xs font-bold rounded-xl flex items-center justify-center gap-1.5 transition-all active:scale-[0.98]">
+                        <i class="fa-regular fa-copy"></i> COPY
+                    </button>
+                    <button onclick="saveCurrentCopy()" class="py-3 bg-white hover:bg-stone-50 border border-stone-200 text-stone-800 text-xs font-bold rounded-xl flex items-center justify-center gap-1.5 transition-all active:scale-[0.98]">
+                        <i class="fa-regular fa-heart"></i> SAVE
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="space-y-3 pt-4 select-none">
+            <div class="bg-white p-5 sm:p-6 rounded-[24px] border border-stone-200 shadow-sm space-y-5">
+                
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                        <span class="text-brand font-black text-lg leading-none">#</span>
+                        <h3 class="text-[11px] sm:text-[12px] font-bold tracking-wide text-stone-800">HASHTAGS & MENTIONS QUICK COPY</h3>
+                    </div>
+                    <button onclick="toggleQCMentions()" id="btn-qc-mentions" class="px-3 py-1.5 rounded-full border border-brand bg-rose-50 text-[10px] font-bold text-brand tracking-wider shadow-sm active:scale-95 transition-all">
+                        MENTIONS: ON
+                    </button>
+                </div>
+
+                <div class="flex items-center justify-between">
+                    <span class="text-[11px] text-stone-400 font-medium">Tap tags to select multiple</span>
+                    <div class="flex gap-1.5">
+                        <button onclick="qcSelectAll()" class="px-3 py-1.5 rounded-full border border-stone-200 bg-white text-[10px] font-medium text-stone-600 shadow-sm active:scale-95 transition-all">Select All</button>
+                        <button onclick="qcClear()" class="px-3 py-1.5 rounded-full border border-stone-200 bg-white text-[10px] font-medium text-stone-600 shadow-sm active:scale-95 transition-all">Clear</button>
+                    </div>
+                </div>
+
+                <div id="qc-tags-grid" class="grid grid-cols-2 gap-2.5">
+                    <!-- Dynamic grid rendered by JS -->
+                </div>
+
+                <button onclick="copyQuickCopyTags()" id="btn-qc-copy" class="w-full py-4 mt-2 bg-[#1C1917] hover:bg-black text-white text-[11px] sm:text-xs font-bold tracking-widest rounded-[16px] transition-all shadow-md active:scale-[0.98] flex justify-center items-center gap-2">
+                    <span class="text-sm">📋</span> COPY ALL ( HANDLES & HASHTAGS )
+                </button>
+            </div>
+        </div>
+
+        <!-- REMOVED THE EMPTY DIV BLOCK HERE! -->
+
+        <div class="bg-white rounded-3xl p-5 border border-stone-200 shadow-sm space-y-3 mt-6">
+            <div class="flex items-center justify-between select-none">
+                <div class="flex items-center gap-2">
+                    <i class="fa-regular fa-bookmark text-brand text-xs"></i>
+                    <h3 class="text-xs font-bold tracking-wider text-stone-800 uppercase">SAVED COPIES (<span id="savedCount">0</span>)</h3>
+                </div>
+                <button onclick="clearAllSaved()" class="text-[10px] font-bold tracking-wider text-stone-400 hover:text-rose-600 uppercase transition-colors active:scale-95">CLEAR ALL</button>
+            </div>
+            <div id="savedList" class="space-y-2 max-h-52 overflow-y-auto pr-1">
+                <p class="text-center text-xs text-stone-400 py-4">No saved copies yet.</p>
+            </div>
+        </div>
+
+        <div class="pb-8"></div>
+    </div>
+
+    <div id="toast" class="fixed bottom-8 left-1/2 transform -translate-x-1/2 bg-stone-900 text-white text-xs font-semibold py-3 px-6 rounded-full shadow-2xl opacity-0 pointer-events-none transition-all duration-300 z-50 translate-y-4 text-center whitespace-nowrap">
+        Copied to clipboard!
+    </div>
+
+    <script>
+        // Utilities
+        const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
+        const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
+        
+        let showOutputMentions = true;
+        let selectedHashtags = new Set(['#MARNIXTHOMASKONG', '#MARNI', '#MFW', '#tthomastc', '#kongjiro']);
+        let currentCategory = 'caption';
+        let currentAccount = 'general';
+        let currentRawBody = "";
+        let toastTimeout = null;
+
+        let qcMentionsOn = true;
+        const qcAllTags = [
+            '@marni', '@meryllrogge.personal', 
+            '@thomaschungmanirat', '@kongjiro', 
+            '@milanfashionweek', '#MARNIXTHOMASKONG', 
+            '#MARNI', '#MFW', 
+            '#tthomastc', '#kongjiro'
+        ];
+        let qcSelectedTags = new Set(qcAllTags);
+
+        function getSavedCopies() {
+            try { return JSON.parse(localStorage.getItem('saved_copies_tk_marni_v5') || '[]'); }
+            catch (e) { return []; }
+        }
+        function setSavedCopies(copies) {
+            try { localStorage.setItem('saved_copies_tk_marni_v5', JSON.stringify(copies)); }
+            catch (e) { console.warn("LocalStorage error"); }
+        }
+        let savedCopies = getSavedCopies();
+
+        // -------------------------------------------------------------------------
+        // MASSIVE TRUE STRUCTURAL RANDOMIZATION ENGINE (2,000,000+ Combinations)
+        // -------------------------------------------------------------------------
+        
+        const pools = {
+            tk: ["THOMAS & KONG", "THOMAS & KONG", "The duo THOMAS & KONG", "Both THOMAS & KONG", "Our iconic duo THOMAS & KONG", "The fashion duo THOMAS & KONG", "THOMAS & KONG", "This legendary pair, THOMAS & KONG", "The ultimate duo THOMAS & KONG", "Our favorite duo, THOMAS & KONG"],
+            loc: ["at Milan Fashion Week", "in Milan", "at MFW", "under the Milanese spotlight", "in the heart of Italy", "at the MARNI showcase", "on the Milan runways", "in bespoke MARNI tailoring", "at the MFW front row", "in the fashion capital", "across the Italian fashion scene"],
+            act_ing: ["taking over", "commanding attention", "redefining style", "making history", "turning heads", "stealing the show", "dominating", "setting new standards", "radiating pure energy", "bringing unmatched charisma to", "serving peak elegance", "elevating the standard", "captivating the crowd", "exuding absolute confidence", "leaving a lasting mark", "showcasing pure magnetism", "delivering high-fashion excellence", "embodying modern luxury"],
+            act_ed: ["took over", "commanded attention", "redefined style", "made history", "turned heads", "stole the show", "dominated", "set new standards", "radiated pure energy", "served peak elegance", "elevated the standard", "captivated the crowd", "exuded absolute confidence", "left a lasting mark", "showcased pure magnetism", "delivered high-fashion excellence"],
+            adj: ["flawless", "breathtaking", "unmatched", "striking", "avant-garde", "immaculate", "mesmerizing", "stunning", "legendary", "iconic", "unforgettable", "bold", "exquisite", "supreme", "masterful", "sublime", "radiant", "fierce", "ethereal", "dynamic", "unreal", "magnetic", "impeccable", "phenomenal", "transcendent", "gorgeous", "majestic", "captivating", "alluring", "sharp"],
+            noun: ["tailoring", "visuals", "aesthetics", "synergy", "charisma", "presence", "elegance", "sophistication", "energy", "style", "artistry", "craftsmanship", "fashion mastery", "allure", "magnetism", "charm", "confidence", "grace", "grandeur", "couture", "silhouettes", "avant-garde details", "artistic vision", "visual impact"],
+            reaction: ["We are absolutely speechless.", "A true masterpiece.", "Icon behavior.", "History in the making.", "Leaving no crumbs behind.", "A breathtaking visual statement.", "Perfection in every frame.", "Setting the bar impossibly high.", "This is what peak fashion looks like.", "Truly a moment to remember forever.", "The fashion world is shaking.", "Simply unmatched.", "Every single detail is a work of art.", "We simply cannot look away.", "It doesn't get better than this.", "An absolute cultural reset.", "Speechless from the very first glance.", "They understood the assignment and delivered perfection.", "A legendary serve.", "Completely obsessed."],
+            intro_phrase: ["Witnessing greatness.", "A fashion masterclass.", "Pure runway magic.", "The moment we waited for.", "Absolutely brilliant.", "Iconic scenes.", "Effortless perfection.", "Beyond our wildest expectations.", "A true work of art.", "The definition of luxury.", "Unforgettable moments.", "Setting the fashion world on fire.", "Pure aesthetic brilliance.", "A striking presence.", "When high fashion meets raw charisma.", "The ultimate fashion statement."],
+            reel_hook: ["Straight from Milan.", "That iconic MFW moment.", "One look, endless impact.", "Fashion in motion.", "Every frame tells a story.", "Wait for it...", "Sound on for this one.", "The energy is unreal.", "Caught in the Milanese breeze.", "A cinematic fashion dream.", "Live from the front row.", "The aura is undeniable.", "Pure motion and elegance.", "Breathtaking in every second.", "Capturing the essence of MARNI."],
+            story_keyword: ["PRIME", "ICONIC", "EXCLUSIVE", "CURATED", "RAW", "GOLDEN", "BOLD", "QUIET", "UNMATCHED", "MOMENT", "VIBES", "DIARIES", "AESTHETIC", "MUSE", "ENERGY", "ESSENCE", "SUPREME", "GLAMOUR", "VISION"],
+            bridge: ["Every single detail speaks volumes.", "The way they carry this look is unmatched.", "It's an exquisite balance of art and modern luxury.", "You can feel the dynamic energy in every shot.", "This appearance just redefined contemporary elegance.", "A flawless execution of high-fashion vision.", "The styling perfectly complements their natural charisma.", "It’s a masterclass in how to own a room.", "Such a powerful display of individuality and synergy.", "They truly brought the designer's vision to life.", "Every element of this look was carefully curated for maximum impact.", "The avant-garde nature of MARNI matches their vibe flawlessly.", "There is a quiet but commanding power in this visual.", "The visual impact of this moment will be talked about for years."]
+        };
+
+        const t_pools = {
+            name: ["Thomas", "Thomas Teetut", "Teetut", "Our prince Thomas", "Thomas Teetut Chungmanirat"],
+            trait: ["regal elegance", "warm smile", "gentle yet commanding aura", "princely charm", "immaculate grace", "soft power", "poise", "breathtaking sophistication", "royal presence", "calm magnetism", "unmatched gentleness"]
+        };
+
+        const k_pools = {
+            name: ["Kong", "Kong Kongpob", "Kongpob", "Our icon Kong", "Kongjiro"],
+            trait: ["fierce energy", "magnetic presence", "cool charisma", "sharp gaze", "unstoppable confidence", "powerful aura", "striking charm", "dynamic allure", "bold attitude", "raw fashion instinct", "commanding stance"]
+        };
+
+        const g_pools = {
+            name: ["THOMAS & KONG", "The iconic duo THOMAS & KONG", "Both THOMAS & KONG", "THOMAS & KONG", "THOMAS & KONG"],
+            trait: ["unbeatable chemistry", "perfect synergy", "combined power", "matching energy", "dynamic contrast", "striking aesthetics", "effortless coordination", "breathtaking partnership", "flawless execution together"]
+        };
+
+        const long_tails = [
+            "We can't wait to see more global moments like this. The journey so far has been nothing short of spectacular.",
+            "This look will definitely go down in fashion history. It is exactly what high fashion should feel like.",
+            "So incredibly proud of the journey on the global stage. It is absolutely inspiring to see them shine so bright among the best.",
+            "A moment that fashion enthusiasts will cherish forever. The level of perfection delivered today is beyond words.",
+            "This is exactly what high fashion should feel like. Seeing this level of artistry and presence on the Milan runway is a dream come true.",
+            "The impact left here in Milan is undeniable. Can't wait to see what they conquer next on the world stage!",
+            "It is a true privilege to watch them grow and dominate the international fashion scene with such confidence.",
+            "They just proved once again why they belong in the upper echelons of global fashion. Simply phenomenal.",
+            "A historic milestone for them, leaving an unforgettable mark on the fashion world.",
+            "This sets a new benchmark for what it means to represent a global luxury brand."
+        ];
+
+        const generators = {
+            caption: () => {
+                const patterns = [
+                    () => `${pick(pools.intro_phrase)} ${cap(pick(pools.act_ing))} ${pick(pools.loc)} with ${pick(pools.tk)} in MARNI. The ${pick(pools.adj)} ${pick(pools.noun)} is ${pick(pools.adj)}, ${pick(['capturing every camera lens', 'leaving everyone mesmerized'])}. ${pick(pools.bridge)} ${pick(pools.reaction)}`,
+                    () => `${pick(pools.tk)} ${pick(pools.act_ed)} ${pick(pools.loc)}. Every detail of their MARNI look reflects ${pick(pools.adj)} ${pick(pools.noun)} and ${pick(pools.adj)} ${pick(pools.noun)}. ${pick(pools.bridge)} ${pick(pools.reaction)}`,
+                    () => `${cap(pick(pools.adj))} ${pick(pools.noun)} and ${pick(pools.adj)} MARNI ${pick(pools.noun)}. ${pick(pools.tk)} ${pick(pools.act_ing)} ${pick(pools.loc)}. ${pick(pools.bridge)} ${pick(pools.reaction)}`,
+                    () => `When ${pick(pools.adj)} MARNI ${pick(pools.noun)} meets modern style. ${pick(pools.tk)} ${pick(pools.act_ing)} ${pick(pools.loc)} with absolute perfection. ${pick(pools.bridge)} ${pick(pools.reaction)}`,
+                    () => `${pick(pools.intro_phrase)} ${pick(pools.tk)} delivering ${pick(pools.adj)} MARNI ${pick(pools.noun)} that redefines contemporary fashion. ${pick(pools.bridge)} ${pick(pools.reaction)}`,
+                    () => `An absolute display of ${pick(pools.adj)} MARNI ${pick(pools.noun)}. ${pick(pools.tk)} completely ${pick(pools.act_ed)} ${pick(pools.loc)}. ${pick(pools.bridge)} ${pick(pools.reaction)}`,
+                    () => `${cap(pick(pools.act_ing))} the room with ${pick(pools.adj)} MARNI ${pick(pools.noun)}. The aesthetic of ${pick(pools.tk)} ${pick(pools.loc)} is ${pick(pools.adj)}. ${pick(pools.reaction)}`,
+                    () => `It is all about the MARNI ${pick(pools.noun)} and ${pick(pools.adj)} ${pick(pools.noun)}. ${pick(pools.tk)} ${pick(pools.loc)}. ${pick(pools.bridge)} ${pick(pools.reaction)}`
+                ];
+                return pick(patterns)();
+            },
+            shortCaption: () => {
+                const patterns = [
+                    () => `${pick(pools.tk)} ${pick(pools.act_ing)} ${pick(pools.loc)} in MARNI. ${cap(pick(pools.adj))} ${pick(pools.noun)} meets flawless execution! ${pick(pools.reaction)}`,
+                    () => `${cap(pick(pools.adj))} MARNI ${pick(pools.noun)} from ${pick(pools.tk)} ${pick(pools.loc)}. ${pick(pools.bridge)} ${pick(pools.reaction)}`,
+                    () => `${pick(pools.intro_phrase)} ${pick(pools.tk)} in MARNI ${pick(pools.loc)}. ${pick(pools.bridge)} Truly unforgettable.`,
+                    () => `Witnessing ${pick(pools.adj)} MARNI ${pick(pools.noun)}. ${pick(pools.tk)} proving that style is everything ${pick(pools.loc)}. ${pick(pools.reaction)}`,
+                    () => `${pick(pools.tk)} x MARNI. ${cap(pick(pools.adj))} ${pick(pools.noun)} and breathtaking energy ${pick(pools.loc)}. ${pick(pools.reaction)}`,
+                    () => `The absolute definition of ${pick(pools.adj)} MARNI ${pick(pools.noun)}. ${pick(pools.tk)} ${pick(pools.loc)}. ${pick(pools.reaction)}`,
+                    () => `${cap(pick(pools.act_ing))} ${pick(pools.loc)} with ${pick(pools.adj)} MARNI ${pick(pools.noun)}. ${pick(pools.tk)} setting the bar high! ${pick(pools.reaction)}`,
+                    () => `${pick(pools.intro_phrase)} The ${pick(pools.adj)} MARNI ${pick(pools.noun)} of ${pick(pools.tk)} ${pick(pools.loc)}. ${pick(pools.reaction)}`
+                ];
+                return pick(patterns)();
+            },
+            reelCaption: () => {
+                const patterns = [
+                    () => `${pick(pools.reel_hook)} ${pick(pools.tk)} ${pick(pools.act_ing)} ${pick(pools.loc)} in MARNI. ${pick(pools.reaction)}`,
+                    () => `${cap(pick(pools.act_ing))} ${pick(pools.loc)} with ${pick(pools.tk)} in MARNI. ${pick(pools.bridge)} ${pick(pools.reaction)}`,
+                    () => `The ${pick(pools.noun)}, the ${pick(pools.noun)}, the absolute energy. ${pick(pools.tk)} x MARNI. ${pick(pools.reel_hook)}`,
+                    () => `A cinematic look at ${pick(pools.tk)} ${pick(pools.loc)}. ${cap(pick(pools.adj))} MARNI ${pick(pools.noun)} in motion. ${pick(pools.reaction)}`,
+                    () => `${pick(pools.tk)} bringing dynamic energy to MARNI. ${pick(pools.bridge)} ${pick(pools.reel_hook)}`,
+                    () => `${pick(pools.intro_phrase)} Catching the ${pick(pools.adj)} MARNI ${pick(pools.noun)} of ${pick(pools.tk)} ${pick(pools.loc)}. ${pick(pools.reel_hook)}`,
+                    () => `${pick(pools.reel_hook)} Witness the ${pick(pools.adj)} MARNI ${pick(pools.noun)} as ${pick(pools.tk)} takes the spotlight. ${pick(pools.reaction)}`,
+                    () => `When motion meets ${pick(pools.adj)} MARNI ${pick(pools.noun)}. ${pick(pools.tk)} ${pick(pools.loc)}. ${pick(pools.reel_hook)}`
+                ];
+                return pick(patterns)();
+            },
+            storyCaption: () => {
+                const patterns = [
+                    () => `THOMAS & KONG x MARNI\n${cap(pick(pools.loc))}\n${pick(pools.story_keyword)} ${pick(pools.story_keyword)}`,
+                    () => `${pick(pools.story_keyword)} VIBES\nTHOMAS & KONG x MARNI`,
+                    () => `${cap(pick(pools.loc))} DIARIES\nTHOMAS & KONG x MARNI`,
+                    () => `${cap(pick(pools.adj))} & ${cap(pick(pools.adj))}\nTHOMAS & KONG x MARNI`,
+                    () => `MARNI HIGHLIGHTS\nTHOMAS & KONG x MARNI`,
+                    () => `${pick(pools.story_keyword)} MOMENT\nTHOMAS & KONG x MARNI ${pick(pools.loc)}`,
+                    () => `THE ${pick(pools.story_keyword)} ERA\nTHOMAS & KONG x MARNI`,
+                    () => `THOMAS & KONG x MARNI\n${pick(pools.story_keyword)} // ${pick(pools.story_keyword)}`
+                ];
+                return pick(patterns)();
+            },
+            comment: (acc, isLong = false) => {
+                let p = acc === 'thomas' ? t_pools : acc === 'kong' ? k_pools : g_pools;
+                
+                const patterns = [
+                    () => `${cap(pick(p.name))} is looking ${pick(pools.adj)} ${pick(pools.loc)}! That ${pick(p.trait)} is just ${pick(pools.adj)}. ${pick(pools.reaction)}`,
+                    () => `Absolutely ${pick(pools.adj)}! Love seeing ${pick(p.name)} ${pick(pools.act_ing)} ${pick(pools.loc)}. The ${pick(p.trait)} is unmatched!`,
+                    () => `The MARNI styling on ${pick(p.name)} is ${pick(pools.adj)}. Showcasing that ${pick(p.trait)} perfectly! ${pick(pools.reaction)}`,
+                    () => `So proud to see ${pick(p.name)} ${pick(pools.loc)}. Pure ${pick(p.trait)} and ${pick(pools.noun)} radiating in every frame.`,
+                    () => `${pick(pools.reaction)} ${cap(pick(p.name))} delivering ${pick(pools.adj)} ${pick(pools.noun)} like no other. Truly ${pick(pools.adj)}!`,
+                    () => `I am completely obsessed with the ${pick(pools.adj)} ${pick(p.trait)} that ${pick(p.name)} is showing ${pick(pools.loc)}. ${pick(pools.reaction)}`,
+                    () => `${pick(pools.intro_phrase)} ${cap(pick(p.name))} proves that ${pick(p.trait)} is everything. Such a ${pick(pools.adj)} moment!`,
+                    () => `The way ${pick(p.name)} carries this look with such ${pick(p.trait)}! Absolutely ${pick(pools.adj)} ${pick(pools.loc)}. ${pick(pools.reaction)}`
+                ];
+                
+                let text = pick(patterns)();
+                if (isLong) {
+                    text += ` ${pick(pools.bridge)} ${pick(long_tails)}`;
+                } else {
+                    const short_tails = ["So proud!", "Love this so much!", "Incredible as always.", "Absolutely stunning.", "Can't get enough of this.", "Simply the best.", "Always making us proud."];
+                    text += ` ${pick(short_tails)}`;
+                }
+                return text;
+            }
+        };
+
+        const recent = new Map();
+        function generateInfiniteText(cat, acc) {
+            const key = `${cat}:${acc}`;
+            let seen = recent.get(key) || [];
+            
+            let text = "";
+            if (cat === 'caption') text = generators.caption();
+            else if (cat === 'shortCaption') text = generators.shortCaption();
+            else if (cat === 'reelCaption') text = generators.reelCaption();
+            else if (cat === 'storyCaption') text = generators.storyCaption();
+            else if (cat === 'comment') text = generators.comment(acc, false);
+            else if (cat === 'longComment') text = generators.comment(acc, true);
+
+            // Avoid immediate repetition
+            for (let i = 0; i < 25 && seen.includes(text); i++) {
+                if (cat === 'caption') text = generators.caption();
+                else if (cat === 'shortCaption') text = generators.shortCaption();
+                else if (cat === 'reelCaption') text = generators.reelCaption();
+                else if (cat === 'storyCaption') text = generators.storyCaption();
+                else if (cat === 'comment') text = generators.comment(acc, false);
+                else if (cat === 'longComment') text = generators.comment(acc, true);
+            }
+            
+            seen.unshift(text);
+            recent.set(key, seen.slice(0, 30));
+            return text;
+        }
+
+        function setCategory(cat) {
+            currentCategory = cat;
+            document.querySelectorAll('.cat-btn').forEach(b => {
+                b.className = "cat-btn py-3 px-4 rounded-2xl text-[11px] sm:text-xs font-semibold border border-stone-200 bg-white text-stone-700 shadow-sm transition-all active:scale-95";
+            });
+            const activeBtn = document.getElementById(`cat-${cat}`);
+            if (activeBtn) {
+                activeBtn.className = "cat-btn py-3 px-4 rounded-2xl text-[11px] sm:text-xs font-bold border border-brand bg-brand text-white shadow-sm transition-all active:scale-95";
+            }
+
+            const accContainer = document.getElementById('accountSelectorContainer');
+            const tagContainer = document.getElementById('captionTagsContainer');
+            const toggleContainer = document.getElementById('toggleContainer');
+
+            if (cat === 'comment' || cat === 'longComment') {
+                accContainer.classList.remove('hidden');
+                tagContainer.classList.add('hidden');
+                toggleContainer.classList.add('invisible');
+                setAccount(currentAccount);
+            } else {
+                accContainer.classList.add('hidden');
+                tagContainer.classList.remove('hidden');
+                toggleContainer.classList.remove('invisible');
+                generateContent();
+            }
+
+            const badgeMap = {
+                caption: 'CAPTION', shortCaption: 'SHORT CAPTION',
+                reelCaption: 'REEL CAPTION', storyCaption: 'STORY CAPTION',
+                comment: 'COMMENT', longComment: 'LONG COMMENT'
+            };
+            document.getElementById('badgeCategory').innerText = badgeMap[cat] || 'CAPTION';
+        }
+
+        function setAccount(acc) {
+            currentAccount = acc;
+            document.querySelectorAll('.acc-btn').forEach(b => {
+                b.className = "acc-btn py-2 text-[11px] font-bold rounded-xl border border-stone-200 bg-white text-stone-600 transition-all active:scale-95";
+            });
+            const activeAcc = document.getElementById(`acc-${acc}`);
+            if (activeAcc) {
+                activeAcc.className = "acc-btn py-2 text-[11px] font-bold rounded-xl border border-brand bg-rose-50 text-brand transition-all active:scale-95";
+            }
+            generateContent();
+        }
+
+        function toggleOutputMentions() {
+            showOutputMentions = !showOutputMentions;
+            const circle = document.getElementById('toggleCircle');
+            const bg = document.getElementById('outputMentionsToggle');
+            
+            if (showOutputMentions) {
+                if (bg) bg.className = "w-9 h-5 bg-brand rounded-full transition-colors relative flex items-center px-0.5 active:scale-95";
+                if (circle) circle.style.transform = "translateX(16px)";
+            } else {
+                if (bg) bg.className = "w-9 h-5 bg-stone-300 rounded-full transition-colors relative flex items-center px-0.5 active:scale-95";
+                if (circle) circle.style.transform = "translateX(0px)";
+            }
+            updateOutputHandlesDisplay();
+        }
+
+        function renderQCTags() {
+            const grid = document.getElementById('qc-tags-grid');
+            if (!grid) return;
+
+            grid.innerHTML = qcAllTags.map(tag => {
+                const isMention = tag.startsWith('@');
+                const isVisible = isMention ? qcMentionsOn : true;
+                const isSelected = qcSelectedTags.has(tag);
+
+                if (!isVisible) {
+                   return `<button class="py-2.5 px-2 rounded-full border border-stone-200 text-stone-400 font-bold text-[10px] sm:text-[11px] tracking-tight bg-stone-50 cursor-not-allowed opacity-50 grayscale transition-all whitespace-nowrap">${tag}</button>`;
+                }
+
+                const activeClass = "border-brand text-brand bg-white";
+                const inactiveClass = "border-stone-200 text-stone-400 bg-white";
+                const appliedClass = isSelected ? activeClass : inactiveClass;
+
+                return `<button onclick="toggleQCTag('${tag}')" class="py-2.5 px-1 rounded-full border ${appliedClass} font-bold text-[10px] sm:text-[11px] tracking-tight shadow-sm active:scale-95 transition-all whitespace-nowrap overflow-hidden text-ellipsis">${tag}</button>`;
+            }).join('');
+            
+            const btnCopy = document.getElementById('btn-qc-copy');
+            if (btnCopy) {
+                btnCopy.innerHTML = qcMentionsOn 
+                    ? '<span class="text-sm">📋</span> COPY ALL ( HANDLES & HASHTAGS )' 
+                    : '<span class="text-sm">📋</span> COPY ALL ( HASHTAGS ONLY )';
+            }
+        }
+        
+        function toggleQCMentions() {
+            qcMentionsOn = !qcMentionsOn;
+            const btn = document.getElementById('btn-qc-mentions');
+            if (btn) {
+                btn.innerText = qcMentionsOn ? 'MENTIONS: ON' : 'MENTIONS: OFF';
+                btn.className = qcMentionsOn 
+                    ? "px-3 py-1.5 rounded-full border border-brand bg-rose-50 text-[10px] font-bold text-brand tracking-wider shadow-sm active:scale-95 transition-all"
+                    : "px-3 py-1.5 rounded-full border border-stone-200 bg-white text-[10px] font-bold text-stone-600 tracking-wider shadow-sm active:scale-95 transition-all";
+            }
+            renderQCTags();
+        }
+        
+        function toggleQCTag(tag) {
+            if (qcSelectedTags.has(tag)) {
+                qcSelectedTags.delete(tag);
+            } else {
+                qcSelectedTags.add(tag);
+            }
+            renderQCTags();
+        }
+        
+        function qcSelectAll() {
+            qcAllTags.forEach(tag => {
+                if (tag.startsWith('@') && !qcMentionsOn) return; 
+                qcSelectedTags.add(tag);
+            });
+            renderQCTags();
+        }
+        
+        function qcClear() {
+            qcSelectedTags.clear();
+            renderQCTags();
+        }
+        
+        function copyQuickCopyTags() {
+            const tagsToCopy = qcAllTags.filter(tag => {
+                if (tag.startsWith('@') && !qcMentionsOn) return false;
+                return qcSelectedTags.has(tag);
+            });
+            
+            const mentions = tagsToCopy.filter(t => t.startsWith('@')).join(' ');
+            
+            let line1 = [];
+            let line2 = [];
+            tagsToCopy.filter(t => t.startsWith('#')).forEach(t => {
+                if (['#MARNIXTHOMASKONG', '#MARNI', '#MFW'].includes(t)) {
+                    line1.push(t);
+                } else {
+                    line2.push(t);
+                }
+            });
+            
+            const hashtagsText = [line1.join(' '), line2.join(' ')].filter(l => l.length > 0).join('\n');
+            
+            let text = "";
+            if (mentions) text += mentions + "\n\n";
+            if (hashtagsText) text += hashtagsText;
+            
+            if (!text.trim()) {
+                showToast("No tags selected!");
+                return;
+            }
+            copyToClipboardFallback(text.trim());
+        }
+
+        function toggleHashtag(tag) {
+            if (selectedHashtags.has(tag)) selectedHashtags.delete(tag);
+            else selectedHashtags.add(tag);
+            updateOutputHandlesDisplay();
+        }
+
+        function updateOutputHandlesDisplay() {
+            const container = document.getElementById('outputHandles');
+            
+            const handlesClass = showOutputMentions 
+                ? "text-[13px] font-bold text-brand tracking-normal leading-relaxed text-center mb-4 transition-all duration-300"
+                : "text-[13px] font-medium text-stone-400 tracking-normal leading-relaxed text-center mb-4 grayscale opacity-60 transition-all duration-300";
+
+            if (!container) return;
+            
+            if (currentCategory === 'comment' || currentCategory === 'longComment') {
+                container.innerHTML = '';
+                return;
+            }
+
+            const handlesHTML = `
+                <div class="${handlesClass}">
+                    @marni @meryllrogge.personal<br>
+                    @thomaschungmanirat @kongjiro<br>
+                    @milanfashionweek
+                </div>
+            `;
+
+            const getBtnClass = (tag) => selectedHashtags.has(tag) 
+                ? "px-2.5 py-1 rounded-full border border-brand bg-rose-50 text-brand font-bold text-[10px] sm:text-[11px] tracking-tight shadow-sm active:scale-95 transition-all whitespace-nowrap cursor-pointer"
+                : "px-2.5 py-1 rounded-full border border-stone-200 bg-stone-50 text-stone-400 font-medium text-[10px] sm:text-[11px] tracking-tight shadow-sm active:scale-95 transition-all grayscale opacity-60 whitespace-nowrap cursor-pointer";
+
+            container.innerHTML = `
+                ${handlesHTML}
+                <div class="flex flex-col gap-1.5 items-center">
+                    <div class="flex flex-wrap justify-center gap-1.5 w-full">
+                        <button onclick="toggleHashtag('#MARNIXTHOMASKONG')" class="${getBtnClass('#MARNIXTHOMASKONG')}">#MARNIXTHOMASKONG</button>
+                        <button onclick="toggleHashtag('#MARNI')" class="${getBtnClass('#MARNI')}">#MARNI</button>
+                        <button onclick="toggleHashtag('#MFW')" class="${getBtnClass('#MFW')}">#MFW</button>
+                    </div>
+                    <div class="flex flex-wrap justify-center gap-1.5 w-full">
+                        <button onclick="toggleHashtag('#tthomastc')" class="${getBtnClass('#tthomastc')}">#tthomastc</button>
+                        <button onclick="toggleHashtag('#kongjiro')" class="${getBtnClass('#kongjiro')}">#kongjiro</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function generateContent() {
+            currentRawBody = generateInfiniteText(currentCategory, currentAccount);
+            const textArea = document.getElementById('generatedText');
+            if (currentCategory === 'storyCaption') {
+                textArea.innerHTML = currentRawBody.replace(/\n/g, '<br>');
+            } else {
+                textArea.innerText = currentRawBody;
+            }
+            updateOutputHandlesDisplay();
+        }
+
+        function getFinalExportText() {
+            let text = currentRawBody;
+            
+            if (currentCategory !== 'comment' && currentCategory !== 'longComment') {
+                let additions = [];
+
+                if (showOutputMentions) {
+                    additions.push("@marni @meryllrogge.personal\n@thomaschungmanirat @kongjiro\n@milanfashionweek");
+                }
+
+                let line1 = ['#MARNIXTHOMASKONG', '#MARNI', '#MFW'].filter(t => selectedHashtags.has(t)).join(' ');
+                let line2 = ['#tthomastc', '#kongjiro'].filter(t => selectedHashtags.has(t)).join(' ');
+                let hashtagsText = [line1, line2].filter(l => l.length > 0).join('\n');
+
+                if (hashtagsText) {
+                    additions.push(hashtagsText);
+                }
+
+                if (additions.length > 0) {
+                    text += "\n\n" + additions.join("\n\n");
+                }
+            }
+            return text;
+        }
+
+        async function copyToClipboardFallback(text) {
+            try {
+                if (navigator.clipboard && window.isSecureContext) {
+                    await navigator.clipboard.writeText(text);
+                } else {
+                    const textArea = document.createElement("textarea");
+                    textArea.value = text;
+                    textArea.style.position = "absolute";
+                    textArea.style.left = "-999999px";
+                    document.body.prepend(textArea);
+                    textArea.select();
+                    document.execCommand("copy");
+                    textArea.remove();
+                }
+                showToast("Copied to clipboard!");
+            } catch (err) {
+                console.error("Clipboard write failed: ", err);
+                showToast("Copied to clipboard!");
+            }
+        }
+
+        function copyGeneratedText() {
+            const text = getFinalExportText();
+            copyToClipboardFallback(text);
+        }
+
+        function saveCurrentCopy() {
+            const text = getFinalExportText();
+            if (savedCopies.includes(text)) return showToast("Already saved!");
+            savedCopies.unshift(text);
+            setSavedCopies(savedCopies);
+            renderSaved();
+            showToast("Saved to list!");
+        }
+
+        function renderSaved() {
+            const list = document.getElementById('savedList');
+            const countElem = document.getElementById('savedCount');
+            if (!list || !countElem) return;
+
+            countElem.innerText = savedCopies.length;
+            if (savedCopies.length === 0) {
+                list.innerHTML = `<p class="text-center text-xs text-stone-400 py-4">No saved copies yet.</p>`;
+                return;
+            }
+            list.innerHTML = savedCopies.map((item, idx) => `
+                <div class="p-3 bg-stone-50 rounded-2xl border border-stone-200 text-xs flex flex-col gap-2">
+                    <p class="text-stone-700 whitespace-pre-wrap font-medium line-clamp-custom leading-relaxed">${item}</p>
+                    <button onclick="copySavedIndex(${idx})" class="text-brand self-end font-bold hover:underline shrink-0 text-[11px] bg-rose-50 px-3 py-1.5 rounded-full border border-brand/20 active:scale-95 transition-transform">COPY TEXT</button>
+                </div>
+            `).join('');
+        }
+
+        function copySavedIndex(idx) {
+            copyToClipboardFallback(savedCopies[idx]);
+        }
+
+        function clearAllSaved() {
+            savedCopies = [];
+            setSavedCopies(savedCopies);
+            renderSaved();
+            showToast("Cleared all saved items!");
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            if (!toast) return;
+            if (toastTimeout) clearTimeout(toastTimeout);
+            toast.innerText = msg;
+            toast.style.opacity = '1';
+            toast.style.transform = 'translate(-50%, 0)';
+            toastTimeout = setTimeout(() => { 
+                toast.style.opacity = '0'; 
+                toast.style.transform = 'translate(-50%, 16px)';
+            }, 2500);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            setCategory('caption');
+            renderSaved();
+            renderQCTags();
+        });
+    </script>
+</body>
+</html>
